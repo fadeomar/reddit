@@ -14,8 +14,9 @@ CREATE TABLE "posts"(
     "title" TEXT NOT NULL,
     "content" TEXT NOT NULL,
     "image" VARCHAR(255),
-    "created_by" INTEGER NOT NULL,
-    "timestamp" VARCHAR(100) NOT NULl,
+    "timestamp" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    "user_id" INT NOT NULL,
+    CONSTRAINT user_id FOREIGN KEY(user_id) REFERENCES USERS(id) ON DELETE CASCADE ON UPDATE CASCADE
   
 );
 CREATE TABLE "comments"(
@@ -23,6 +24,8 @@ CREATE TABLE "comments"(
     "content" TEXT NOT NULL,
     "post_id" INTEGER NOT NULL,
     "user_id" INTEGER NOT NULL,
+    CONSTRAINT user_id FOREIGN KEY(user_id) REFERENCES USERS(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT post_id FOREIGN KEY(post_id) REFERENCES POSTS(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 COMMIT;
