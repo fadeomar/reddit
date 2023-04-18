@@ -10,5 +10,7 @@ const build = () => {
   });
   return connection.query(sql + seeds);
 };
-
+build()
+  .then(() => console.log("database build successfully"))
+  .catch((err) => console.log({ err }, "something went wrong!!"));
 module.exports = build;

@@ -1,9 +1,37 @@
-const { join } = require("path");
+const CustomError = require("../../utils/customError");
+
+const { addUserQuery, getUserByEmailQuery } = require("../../database/quires");
+
+const {
+  validateSignup,
+  validateSignin,
+  generateAccessToken,
+  hashPassword,
+  comparePasswords,
+} = require("../../helpers");
 
 const postSignup = (req, res, next) => {
   const data = req.body;
-  console.log("ddddddddddddddddddddddddddd", data);
-  res.json("sucess");
+
+  validateSignup(req.body)
+    .then(() => {
+      return getUserByEmailQuery(req.body.email);
+    })
+    .then((result) => {
+      if (result.rows.length !== 0) {
+        throw new CustomError(400, "Bad request: user already exists");
+      }
+    })
+    .then(() => {
+      return hashPassword(req.body.password);
+    })
+    .then((hashedPassword) => {
+      return addUserQuery({ ...req.body, password: hashedPassword });
+    })
+    .then(() => {
+      res.status(201).json({ username: req.body.username, msg: "inserted!" });
+    })
+    .catch((err) => console.log({ err }));
 };
 
 module.exports = postSignup;
