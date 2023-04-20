@@ -5,15 +5,21 @@ const image = document.querySelector("#image");
 const create_post_btn = document.querySelector("#share-post-btn");
 const logout_btn = document.querySelector("#logout_btn");
 
+const userData = JSON.parse(localStorage.getItem("user"));
+if (userData) {
+  username.textContent = userData.username;
+}
+
 // cards section
 const cardsContainer = document.querySelector(".cards-container");
 
-const getCards = () => {
-  fetch("/posts")
+const getCards = ({ userId }) => {
+  fetch(`/posts/${userId}`)
     .then((data) => {
       return data.json();
     })
     .then((data) => {
+      console.log({ data });
       renderCards(data);
     })
     .catch(() => {
@@ -87,14 +93,9 @@ const renderCards = (cards = []) => {
   });
 };
 
-getCards();
+getCards({ userId: userData.id });
 
 // end cards
-
-const userData = JSON.parse(localStorage.getItem("user"));
-if (userData) {
-  username.textContent = userData.username;
-}
 
 create_post_btn.addEventListener("click", (e) => {
   if ((title.value, content.value, image.value)) {
