@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reddit | Profile</title>
+    <link rel="stylesheet" href="../css/profile.css">
+  </head>
+  <body>
+    <nav class="navbar">
+         <a href="/" class="logo">
+          <img src="../images/reddit-logo.png" alt="logo">
+          <p>reddit</p>
+         </a>
+       <section class="user-name">
+        <h1 class="header"> Hello <span id="username">user</span></h1>
+       </section>
+
+      <section class="profile">
+         <button><a href="/" class="logout-btn" id="logout_btn">log out</a></button> 
+
+      </section>
+  </nav>
+<section class="create-section">
+  <div class="overlay">
+  <form class="create-post-section" action="">
+    <h1 style="text-align:left;">Create New Post</h1>
+      <input
+      type="text"
+      id="title"
+      class="image-url-input"
+      placeholder="Title"
+      required
+    />
+        <input
+          type="text"
+          id="image"
+          class="image-url-input"
+          placeholder="Image URL"
+          required
+        />
+        <textarea
+          name="caption"
+          type="text"
+          class="caption-input"
+          id="content"
+          placeholder="Caption"
+        ></textarea>
+        <input type="submit" value="Share" id="share-post-btn" />
+</form>
+  <div class="cards-container ">
+
+
+    </div>
+
+    <script src="../js/profileCalls.js"></script>
+    <script src="../js/profileDom.js"></script>
+  </body>
+</html>
